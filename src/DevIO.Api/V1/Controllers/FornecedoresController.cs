@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using DevIO.Api.Controllers;
 using DevIO.Api.Extensions;
 using DevIO.Api.ViewModels;
 using DevIO.Business.Intefaces;
@@ -9,10 +10,10 @@ using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
-namespace DevIO.Api.Controllers
+namespace DevIO.Api.V1.Controllers
 {
-    
-    [Route("api/[controller]")]
+    [ApiVersion("1.0")]
+    [Route("api/v{version:apiVersion}/[controller]")]
     public class FornecedoresController : MainController
     {
         private readonly IFornecedorRepository _repository;
@@ -23,7 +24,7 @@ namespace DevIO.Api.Controllers
         public FornecedoresController(IFornecedorRepository repository,
                                       IMapper mapper,
                                       IFornecedorService fornecedorService,
-                                      INotificador notificador, 
+                                      INotificador notificador,
                                       IEnderecoRepository enderecoRepository,
                                       IUser user) : base(notificador, user)
         {
@@ -51,11 +52,11 @@ namespace DevIO.Api.Controllers
             return Ok(fornecedor);
 
         }
-        [ClaimsAuthorize("Fornecedor","Adicionar")]
+        [ClaimsAuthorize("Fornecedor", "Adicionar")]
         [HttpPost]
         public async Task<ActionResult<FornecedorViewModel>> Adicionar(FornecedorViewModel fornecedorViewModel)
         {
-            
+
 
             if (!ModelState.IsValid) return CustomResponse(ModelState);
 
@@ -79,7 +80,7 @@ namespace DevIO.Api.Controllers
 
             if (!ModelState.IsValid) return CustomResponse(ModelState);
 
-             await _fornecedorService.Atualizar(_mapper.Map<Fornecedor>(fornecedorViewModel));
+            await _fornecedorService.Atualizar(_mapper.Map<Fornecedor>(fornecedorViewModel));
 
 
             return CustomResponse(fornecedorViewModel);
@@ -96,7 +97,7 @@ namespace DevIO.Api.Controllers
 
             if (fornecedor == null) return NotFound();
 
-           await _fornecedorService.Remover(id);
+            await _fornecedorService.Remover(id);
 
             return CustomResponse(fornecedor);
         }

@@ -17,7 +17,7 @@ namespace DevIO.Api.Controllers
         protected bool UsuarioAutenticado { get; set; }
 
 
-        protected MainController(INotificador notificador, 
+        protected MainController(INotificador notificador,
                                  IUser appUser)
         {
             _notificador = notificador;
@@ -72,7 +72,7 @@ namespace DevIO.Api.Controllers
 
         protected void NotificarErro(string mensagem)
         {
-            _notificador.Handle(new Notificacao((mensagem)));
+            _notificador.Handle(new Notificacao(mensagem));
         }
 
     }
