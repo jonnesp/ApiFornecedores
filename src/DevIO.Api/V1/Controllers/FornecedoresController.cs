@@ -109,7 +109,7 @@ namespace DevIO.Api.V1.Controllers
 
         }
 
-        [HttpPut("{id:guid}")]
+        [HttpPut("atualizar-endereco/{id:guid}")]
         public async Task<IActionResult> AtualizarEndereco(Guid id, EnderecoViewModel enderecoViewModel)
         {
             if (id != enderecoViewModel.Id)
